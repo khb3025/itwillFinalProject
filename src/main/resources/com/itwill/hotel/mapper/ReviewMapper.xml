@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.hotel.mapper.ReviewMapper">
+
+	<select id="selectAll" resultType="Review" parameterType="_int">
+		select r.rNo, r.rRate1, r.rRate2, r.rRate3, r.rRate4, r.rContent, r.rRegDate, r.mNo, r.pNo, 
+				m.mId, mImg, p.pType, round((r.rRate1+r.rRate2+r.rRate3+r.rRate4)/4) as rRate 
+		from review r inner join member m on r.mNo=m.mNo 
+					inner join product p on r.pNo=p.pNo 
+					and r.pNo=#{pNo}
+		order by r.rRegdate desc
+	</select>
+	
+	<select id="selectOne" resultType="Review" parameterType="java.util.HashMap">
+		select r.rNo, r.rRate1, r.rRate2, r.rRate3, r.rRate4, r.rContent, r.rRegDate, r.mNo, r.pNo, 
+				m.mId, mImg, p.pType, round((r.rRate1+r.rRate2+r.rRate3+r.rRate4)/4) as rRate 
+		from review r inner join member m on r.mNo=m.mNo 
+					inner join product p on r.pNo=p.pNo 
+					and r.pNo=#{pNo} and r.mNo=#{mNo}
+	</select>
+	
+	<select id="ifExisted" resultType="_int" parameterType="java.util.HashMap">
+		select count(rNo) 
+		from review 
+		where pNo=#{pNo} and mNo=#{mNo}
+	</select>
+	
+	<select id="selectRate" resultType="ReviewRate" parameterType="_int">
+		select round(sum(rRate1)/count(rNo)) as rTotRate1, round(sum(rRate2)/count(rNo)) as rTotRate2, 
+       			round(sum(rRate3)/count(rNo)) as rTotRate3, round(sum(rRate4)/count(rNo)) as rTotRate4, 
+       			round((sum(rRate1)+sum(rRate2)+sum(rRate3)+sum(rRate4))/4/count(rNo)) as rTotRate
+		from review
+		where pNo=#{pNo}
+	</select>
+	
+	<insert id="insertReview" parameterType="Review">
+		insert into 
+		review(rNo, rRate1, rRate2, rRate3, rRate4, rContent, rRegDate, mNo, pNo)
+		values(review_SEQ.nextval, #{rRate1}, #{rRate2}, #{rRate3}, #{rRate4}, 
+				#{rContent}, sysdate, #{mNo}, #{pNo})
+	</insert>
+	
+	<update id="updateReview" parameterType="java.util.HashMap">
+		update review
+		set rRate1=#{rRate1}, rRate2=#{rRate2}, rRate3=#{rRate3}, rRate4=#{rRate4}, 
+			rContent=#{rContent}, rRegDate=sysdate
+		where pNo=#{pNo} and mNo=#{mNo}
+	</update>
+	
+	<delete id="deleteReview" parameterType="java.util.HashMap">
+		delete from review 
+		where pNo=#{pNo} and mNo=#{mNo}
+	</delete>
+	
+	<delete id="deleteReviewMember">
+		delete from review
+		where mNo=#{mNo}
+	</delete>
+	
+</mapper>

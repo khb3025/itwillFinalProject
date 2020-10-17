@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.hotel.mapper.MemberMapper">
+	<select id="selectAll" resultType="Member">
+		select mNo, mId, mFirstName, mLastName, mPassword, mTel, 
+				mEmail, mBirth, mImg, mCountry, mCity, mAddress, 
+				mZipCode, mTempPassword, mRemoveDate, mIfActive 
+		from member
+	</select>
+	
+	<select id="selectOne" parameterType="string" resultType="Member">
+		select mNo, mId, mFirstName, mLastName, mPassword, mTel, 
+				mEmail, mBirth, mImg, mCountry, mCity, mAddress, 
+				mZipCode, mTempPassword, mRemoveDate, mIfActive
+		from member
+		where mId=#{mId}
+	</select>
+	
+	<select id="checkIdExist" parameterType="string" resultType="_int">
+		select count(mNo)
+		from member
+		where mId=#{mId}
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		insert into 
+		Member (mNo, mId, mFirstName, mLastName, mPassword, mTel, mEmail, mBirth, mImg, 
+				mCountry, mCity, mAddress, mZipCode, mTempPassword, mRemoveDate, mIfActive)
+		values (member_SEQ.nextval, #{mId}, #{mFirstName}, #{mLastName}, #{mPassword}, #{mTel}, 
+				#{mEmail}, #{mBirth}, 'member.jpg', null, null, null, null, null, null, 1)
+	</insert>
+	
+	<select id="checkTelExist" parameterType="string" resultType="_int">
+		select count(mNo) 
+		from member 
+		where mTel=#{mTel}
+	</select>
+	
+	<select id="checkEmailExist" parameterType="string" resultType="_int">
+		select count(mNo) 
+		from member 
+		where mEmail=#{mEmail}
+	</select>
+	
+	<delete id="deleteInactiveMember">
+		delete from member
+		where sysdate - mRemoveDate > 1/288
+	</delete>
+	
+	<update id="removeMember" parameterType="string">
+		update member 
+		set mIfActive=0, mRemoveDate=sysdate 
+		where mId=#{mId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		delete from member 
+		where mId=#{mId}
+	</delete>
+	
+	<update id="setTempPasswordNull" parameterType="string">
+		update member
+		set mTempPassword=null 
+		where mId=#{mId}
+	</update>
+	
+	<update id="updatePassword" parameterType="java.util.HashMap">
+		update member
+		set mPassword=#{mPassword}, mTempPassword=null 
+		where mId=#{mId}
+	</update>
+	
+	<select id="getTempPassword" resultType="string">
+		select DBMS_RANDOM.STRING('P', 20) rand 
+		FROM DUAL
+	</select>
+	
+	<select id="forgetPasswordCheck" parameterType="java.util.HashMap" resultType="_int">
+		select count(mNo) 
+		from member 
+		where mId=#{mId} and mFirstName=#{mFirstName} and mLastName=#{mLastName} 
+			  and mTel=#{mTel} and mEmail=#{mEmail} and mBirth=#{mBirth}
+	</select>
+	
+	<update id="updateTempPassword" parameterType="java.util.HashMap">
+		update member 
+		set mTempPassword=#{mTempPassword} 
+		where mId=#{mId}
+	</update>
+	
+	<select id="reactiveAccountCheck" parameterType="java.util.HashMap" resultType="_int">
+		select count(mNo) 
+		from member 
+		where mId=#{mId} and mPassword=#{mPassword} and mFirstName=#{mFirstName} and 
+			  mLastName=#{mLastName} and mTel=#{mTel} and mEmail=#{mEmail} and mBirth=#{mBirth}
+	</select>
+	
+	<select id="ifActive" parameterType="java.util.HashMap" resultType="_int">
+		select mIfActive
+		from member 
+		where mId=#{mId} and mPassword=#{mPassword} and mFirstName=#{mFirstName} and 
+			  mLastName=#{mLastName} and mTel=#{mTel} and mEmail=#{mEmail} and mBirth=#{mBirth}
+	</select>
+	
+	<update id="reActivateAccount" parameterType="string">
+		update member 
+		set mIfActive=1, mRemoveDate=null 
+		where mId=#{mId}
+	</update>
+	
+	<update id="updateEmail" parameterType="java.util.HashMap">
+		update member 
+		set mEmail=#{mEmail} 
+		where mNo=#{mNo}
+	</update>
+	
+	<update id="updateMember">
+		update member 
+		set mFirstName=#{mFirstName}, mLastName=#{mLastName}, mTel=#{mTel}, mBirth=#{mBirth}, 
+			mAddress=#{mAddress}, mCity=#{mCity}, mZipCode=#{mZipCode}, mCountry=#{mCountry}
+		where mNo=#{mNo}
+	</update>
+	
+	<update id="updateImg">
+		update member 
+		<choose>
+		<when test="mImg!=null and mImg!=''">
+			set mImg=#{mImg} 
+		</when>
+		<otherwise>
+			set mImg='member.jpg' 
+		</otherwise>
+		</choose>
+		where mNo=#{mNo}
+	</update>
+</mapper>

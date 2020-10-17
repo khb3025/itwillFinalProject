@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.hotel.mapper.BlogMapper">
+	
+	<!-- Blog -->
+	<select id="selectAllBlog" resultType="Blog">
+		select bNo, bTitle, bDate, bContent, bReadCount, bCategory, bImg, mNo
+		from blog
+		order by bDate desc
+	</select>
+	
+	<select id="selectBlogByType" resultType="Blog">
+		select bNo, bTitle, bDate, bContent, bReadCount, bCategory, bImg, mNo
+		from blog
+		where bCategory=#{type}
+		order by bDate desc
+	</select>
+	
+	<select id="selectRecentBlog" resultType="Blog">
+		select bNo, bTitle, bDate, bContent, bReadCount, bCategory, bImg, mNo
+		from blog
+        where <![CDATA[ ROWNUM <= 3 ]]>
+		order by bDate desc
+	</select>
+	
+	<select id="selectOneBlog" resultType="Blog" parameterType="_int">
+		select bNo, bTitle, bDate, bContent, bReadCount, bCategory, bImg, mNo
+		from blog
+		where bNo=#{bNo}
+	</select>
+	
+	<insert id="insertBlog" parameterType="java.util.HashMap">
+		insert into blog(bNo, bTitle, bDate, bContent, bReadCount, bCategory, bImg, mNo) 
+		values(blog_SEQ.nextval, #{bTitle}, sysdate, #{bContent}, 0, #{bCategory}, 'blogBasic.jpg', #{mNo})
+	</insert>
+	
+	<update id="updateBlog" parameterType="java.util.HashMap">
+		update blog
+		set bTitle=#{bTitle}, bDate=sysdate, bContent=#{bContent}
+		where bNo=#{bNo}
+	</update>
+	
+	<update id="updateBlogImg" parameterType="java.util.HashMap">
+		update blog 
+		set bImg=#{bImg}
+		where bNo=#{bNo}
+	</update>
+	
+	<delete id="deleteBlog" parameterType="java.util.HashMap">
+		delete from blog
+		where bNo=#{bNo} and mNo=#{mNo}
+	</delete>
+	
+	<delete id="deleteBlogMember" parameterType="_int">
+		delete from blog
+		where mNo=#{mNo}
+	</delete>
+	
+</mapper>

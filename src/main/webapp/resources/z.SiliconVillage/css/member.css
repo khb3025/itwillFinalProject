@@ -1,0 +1,333 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+/*--------- forgot-password ---------*/
+/*-------- 7.5 Sing In Modal --------*/
+#forgot-password {
+  background: #fff;
+  padding: 30px;
+  padding-top: 0;
+  text-align: left;
+  max-width: 400px;
+  margin: 40px auto;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* Popup close button*/
+#forgot-password .mfp-close,
+#small-dialog .mfp-close {
+  color: #666;
+  background-color: #e4e4e4;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  top: 12px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+
+#forgot-password .mfp-close:hover,
+#small-dialog .mfp-close:hover {
+  color: #fff;
+  background-color: #66676b;
+}
+
+#forgot-password .mfp-close:before {
+  font-size: 24px;
+  font-family: 'ElegantIcons';
+  content: "\4d";
+}
+
+.small-dialog-header {
+  font-size: 18px;
+  width: calc(100% + 60px);
+  position: relative;
+  left: -30px;
+  top: 0;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+  display: inline-block;
+  background-color: #f6f6f6;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+}
+
+.small-dialog-header h3 {
+  padding: 0;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+#forgot-password .mfp-close:hover,
+#small-dialog .mfp-close:hover {
+  color: #fff;
+  background-color: #66676b;
+}
+
+#forgot-password .form-group {
+  position: relative;
+}
+
+#forgot-password .form-group input.form-control {
+  padding-left: 40px;
+}
+
+#forgot-password .form-group i {
+  font-size: 21px;
+  font-size: 1.3125rem;
+  position: absolute;
+  left: 12px;
+  top: 35px;
+  color: #ccc;
+  width: 25px;
+  height: 25px;
+  display: block;
+  font-weight: 400 !important;
+}
+
+
+/*--------- reActive-Account ---------*/
+/*-------- 7.5 Sing In Modal --------*/
+#reactivate-account {
+  background: #fff;
+  padding: 30px;
+  padding-top: 0;
+  text-align: left;
+  max-width: 400px;
+  margin: 40px auto;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+/* Popup close button*/
+#reactivate-account .mfp-close,
+#small-dialog .mfp-close {
+  color: #666;
+  background-color: #e4e4e4;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  top: 12px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+
+#reactivate-account .mfp-close:hover,
+#small-dialog .mfp-close:hover {
+  color: #fff;
+  background-color: #66676b;
+}
+
+#reactivate-account .mfp-close:before {
+  font-size: 24px;
+  font-family: 'ElegantIcons';
+  content: "\4d";
+}
+
+.small-dialog-header {
+  font-size: 18px;
+  width: calc(100% + 60px);
+  position: relative;
+  left: -30px;
+  top: 0;
+  -webkit-border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  border-radius: 4px 4px 0 0;
+  display: inline-block;
+  background-color: #f6f6f6;
+  padding: 15px 20px;
+  margin-bottom: 30px;
+}
+
+.small-dialog-header h3 {
+  padding: 0;
+  margin: 0;
+  font-size: 21px;
+  font-weight: 400;
+}
+
+#reactivate-account .mfp-close:hover,
+#small-dialog .mfp-close:hover {
+  color: #fff;
+  background-color: #66676b;
+}
+
+#reactivate-account .form-group {
+  position: relative;
+}
+
+#reactivate-account .form-group input.form-control {
+  padding-left: 40px;
+}
+
+#reactivate-account .form-group i {
+  font-size: 21px;
+  font-size: 1.3125rem;
+  position: absolute;
+  left: 12px;
+  top: 35px;
+  color: #ccc;
+  width: 25px;
+  height: 25px;
+  display: block;
+  font-weight: 400 !important;
+}
+
+
+/*--------- login-form ---------*/
+#login-form .form-group {
+  position: relative;
+}
+#login-form .form-group input.form-control {
+  padding-left: 40px;
+}
+#login-form .form-group i {
+  font-size: 21px;
+  font-size: 1.3125rem;
+  position: absolute;
+  left: 8px;
+  top: 35px;
+  color: #ccc;
+  width: 25px;
+  height: 25px;
+  display: block;
+  font-weight: 400 !important;
+}
+
+/*--------- insert-member ---------*/
+#insert-member .form-group {
+  position: relative;
+}
+#insert-member .form-group input.form-control {
+  padding-left: 40px;
+}
+#insert-member .form-group i {
+  font-size: 21px;
+  font-size: 1.3125rem;
+  position: absolute;
+  left: 8px;
+  top: 35px;
+  color: #ccc;
+  width: 25px;
+  height: 25px;
+  display: block;
+  font-weight: 400 !important;
+}
+
+/*--------- access_link ---------*/
+a#sign-out-link {
+	position:relative;
+	display:inline-block;
+	padding-left:16px;
+}
+
+#sign-out-link:before {
+	font-style: normal;
+ 	font-weight: normal;
+ 	font-family: "fontello";
+    font-size:14px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+#sign-out-link:before{content: "\e87c";}
+
+a#mypage-link {
+	position:relative;
+	display:inline-block;
+	padding-left:16px;
+}
+
+#mypage-link:before {
+	font-style: normal;
+ 	font-weight: normal;
+ 	font-family: "fontello";
+    font-size:14px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+#mypage-link:before{content: "\e80f";}
+
+
+/* member_admin.jsp: Drag and Drop */
+.upload-drop-zone {
+  height: 200px;
+  border-width: 2px;
+  margin-bottom: 20px;
+}
+.upload-drop-zone {
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center;
+}
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
+}
+.upload_1 {
+	margin:20px 0;
+}
+
+/* Modal Header Close button */
+.closeAlert:hover {
+  color: #000;
+  text-decoration: none;
+}
+.closeAlert:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
+  opacity: .75;
+}
+button.closeAlert {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+a.closeAlert.disabled {
+  pointer-events: none;
+}
+.alert-dismissible .closeAlert {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.75rem 1.25rem;
+  color: inherit;
+}
+.customized_notify .closeAlert {
+    font-weight: 500;
+    opacity: .2;
+}
+.closeAlert {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+.modal-header .closeAlert {
+  position: absolute;
+  padding: 1rem 1rem;
+  margin: -1rem -1rem -1rem auto;
+}

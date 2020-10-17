@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwill.hotel.mapper.ProductMapper">
+
+	<select id="selectByNo"
+			parameterType="java.lang.Integer"
+			resultType="Product">
+		select pNo, pName, pPrice, pType, pAvailable, pImg, pCapacity, pRate, pDesc, foodCategory,
+			   (select count(rNo) from review r where r.pNo = p.pNo) as rCount,
+			   (select count(mNo) from wish_list w where w.pNo = p.pNo) as wCount
+		from product p
+		where pNo = #{pNo}
+	</select>
+	
+	<select id="selectByType"
+			parameterType="java.util.HashMap"
+			resultType="Product">
+
+		select p.pNo, pName, pPrice, pType, pAvailable, pImg, pCapacity, pRate, pDesc, foodCategory,
+			   (select count(rNo) from review r where r.pNo = p.pNo) as rCount,
+			   (select count(mNo) from wish_list w where w.pNo = p.pNo) as wCount
+		from product p
+		<trim prefix="where" suffixOverrides="and">
+			<if test="pType != null">
+				pType = #{pType} and
+			</if>
+			<if test="pPrice_lb != null and pPrice_ub != null">
+				pPrice &lt;= #{pPrice_ub} and pPrice &gt;= #{pPrice_lb} and
+			</if>
+			<if test="pRate1 != null or pRate2 != null or pRate3 != null or pRate4 != null or pRate5 != null">
+				(ROUND(pRate/2) = #{pRate1, jdbcType=NUMERIC} or ROUND(pRate/2) = #{pRate2, jdbcType=NUMERIC} or 
+				 ROUND(pRate/2) = #{pRate3, jdbcType=NUMERIC} or ROUND(pRate/2) = #{pRate4, jdbcType=NUMERIC} or 
+				 ROUND(pRate/2) = #{pRate5, jdbcType=NUMERIC})
+			</if>
+		</trim>
+		<trim prefix="order by">
+			<if test="orderBy == 'pPrice'"> pPrice </if>
+			<if test="orderBy == 'pPriceDesc'"> pPrice DESC </if>
+			<if test="orderBy == 'pRate'"> pRate </if>
+			<if test="orderBy == 'pRateDesc'"> pRate DESC </if>
+		</trim>
+	</select>
+	
+	<select id="selectByCategory" parameterType="String" resultType="Product">
+		select pNo, pName, pPrice, pType, pAvailable, pImg, pCapacity, pRate, pDesc, foodCategory 
+		from product
+		where foodCategory = #{foodCategory}
+		order by pName, pNo
+	</select>
+	
+	<select id="checkWishlist" parameterType="Wishlist" resultType="java.lang.Integer">
+		select count(pNo)
+		from wish_list
+		where mNo = #{mNo} and pNo=#{pNo}
+	</select>
+	
+	<select id="countByType" parameterType="String" resultType="_int">
+		select count(pNo)
+		from product
+		where pType = #{pType}
+	</select>
+	
+	<select id="countByCategory" parameterType="String" resultType="_int">
+		select count(pNo)
+		from product
+		where foodCategory = #{foodCategory}
+	</select>
+	
+	<select id="countBookedRoomQty"
+			parameterType="java.util.HashMap"
+			resultType="java.lang.Integer">
+		select SUM(jdProductQty)
+		from jumun_detail
+		where pNo = #{pNo}
+		and jdOrderDate &lt; ANY(TO_DATE(#{jdCheckOut}))
+		and jdCheckOut &gt; ANY(TO_DATE(#{jdOrderDate}))
+	</select>
+	
+	<select id="countBookedTourQty"
+			parameterType="java.util.HashMap"
+			resultType="java.lang.Integer">
+		select SUM(jdProductQty)
+		from jumun_detail
+		where pNo = #{pNo}
+		and jdOrderDate = ANY(TO_DATE(#{jdOrderDate}))
+	</select>
+	
+	<select id="countCartTourQty"
+			parameterType="java.util.HashMap"
+			resultType="java.lang.Integer">
+		select SUM(cProductQty)
+		from cart
+		where pNo = #{pNo}
+		and cCheckin = ANY(TO_DATE(#{cCheckin}))
+	</select>
+	
+	<select id="countCartOptionQty"
+			parameterType="_int"
+			resultType="java.lang.Integer">
+		select SUM(cProductQty)
+		from cart
+		where pNo = #{pNo}
+	</select>
+	
+	<update id="updateRate" parameterType="_int">
+		update product 
+		set pRate=(select round((sum(rRate1)+sum(rRate2)+sum(rRate3)+sum(rRate4))/4/count(rNo)) 
+		             from review 
+		            where pNo=#{pNo}) 
+		where pNo=#{pNo}
+	</update>
+	
+	<delete id="deleteProduct" parameterType="_int">
+		delete from product
+		where pNo=#{pNo}
+	</delete>
+	
+</mapper>
