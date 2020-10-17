@@ -1,0 +1,729 @@
+﻿-- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
+
+-- member Table Create SQL
+CREATE TABLE member
+(
+    mNo              NUMBER(10, 0)    NOT NULL, 
+    mId              VARCHAR2(20)     NOT NULL, 
+    mFirstName       VARCHAR2(20)     NOT NULL, 
+    mLastName        VARCHAR2(20)     NOT NULL, 
+    mPassword        VARCHAR2(20)     NOT NULL, 
+    mTel             VARCHAR2(15)     NOT NULL, 
+    mEmail           VARCHAR2(20)     NOT NULL, 
+    mBirth           NUMBER(8, 0)     NOT NULL, 
+    mImg             VARCHAR2(50)     NULL, 
+    mCountry         VARCHAR2(20)     NULL, 
+    mCity            VARCHAR2(200)    NULL, 
+    mAddress         VARCHAR2(500)    NULL, 
+    mZipCode         VARCHAR2(10)     NULL, 
+    mTempPassword    VARCHAR2(20)     NULL, 
+    mRemoveDate      DATE             NULL, 
+    mIfActive        NUMBER(1, 0)     NOT NULL, 
+    CONSTRAINT MEMBER_PK PRIMARY KEY (mNo)
+)
+/
+
+CREATE SEQUENCE member_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER member_AI_TRG
+BEFORE INSERT ON member 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT member_SEQ.NEXTVAL
+    INTO :NEW.mNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER member_AI_TRG;
+/
+
+--DROP SEQUENCE member_SEQ;
+/
+
+COMMENT ON TABLE member IS '회원'
+/
+
+COMMENT ON COLUMN member.mNo IS '회원 번호'
+/
+
+COMMENT ON COLUMN member.mId IS '회원 아이디'
+/
+
+COMMENT ON COLUMN member.mFirstName IS '회원 성'
+/
+
+COMMENT ON COLUMN member.mLastName IS '회원 이름'
+/
+
+COMMENT ON COLUMN member.mPassword IS '비밀번호'
+/
+
+COMMENT ON COLUMN member.mTel IS '전화번호'
+/
+
+COMMENT ON COLUMN member.mEmail IS '이메일'
+/
+
+COMMENT ON COLUMN member.mBirth IS '생년월일'
+/
+
+COMMENT ON COLUMN member.mImg IS '회원 이미지'
+/
+
+COMMENT ON COLUMN member.mCountry IS '나라'
+/
+
+COMMENT ON COLUMN member.mCity IS '도시'
+/
+
+COMMENT ON COLUMN member.mAddress IS '도로명'
+/
+
+COMMENT ON COLUMN member.mZipCode IS '우편번호'
+/
+
+COMMENT ON COLUMN member.mTempPassword IS '임시비밀번호'
+/
+
+COMMENT ON COLUMN member.mRemoveDate IS '탈퇴 날짜'
+/
+
+COMMENT ON COLUMN member.mIfActive IS '활성화'
+/
+
+
+-- member Table Create SQL
+CREATE TABLE product
+(
+    pNo              NUMBER(10, 0)     NOT NULL, 
+    pName            VARCHAR2(20)      NOT NULL, 
+    pPrice           NUMBER(10, 0)     NOT NULL, 
+    pType            VARCHAR2(20)      NOT NULL, 
+    pAvailable       NUMBER(2, 0)      NOT NULL, 
+    pImg             VARCHAR2(500)     NULL, 
+    pCapacity        NUMBER(10, 0)     NULL, 
+    pDesc            VARCHAR2(4000)    NOT NULL, 
+    FoodCategory    VARCHAR2(20)      NULL, 
+    pRate            NUMBER(1, 0)      NULL, 
+    CONSTRAINT PRODUCT_PK PRIMARY KEY (pNo)
+)
+/
+
+CREATE SEQUENCE product_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER product_AI_TRG
+BEFORE INSERT ON product 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT product_SEQ.NEXTVAL
+    INTO :NEW.pNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER product_AI_TRG;
+/
+
+--DROP SEQUENCE product_SEQ;
+/
+
+COMMENT ON TABLE product IS '제품'
+/
+
+COMMENT ON COLUMN product.pNo IS '제품 번호'
+/
+
+COMMENT ON COLUMN product.pName IS '제품 명'
+/
+
+COMMENT ON COLUMN product.pPrice IS '제품 가격'
+/
+
+COMMENT ON COLUMN product.pType IS '제품 타입'
+/
+
+COMMENT ON COLUMN product.pAvailable IS '제품 총 재고'
+/
+
+COMMENT ON COLUMN product.pImg IS '제품 사진'
+/
+
+COMMENT ON COLUMN product.pCapacity IS '최대 수용 인원'
+/
+
+COMMENT ON COLUMN product.pDesc IS '제품 설명'
+/
+
+COMMENT ON COLUMN product.pFoodCategory IS '카테고리'
+/
+
+COMMENT ON COLUMN product.pRate IS '평점'
+/
+
+
+-- member Table Create SQL
+CREATE TABLE jumun
+(
+    jNo            NUMBER(10, 0)    NOT NULL, 
+    jTotPay        NUMBER(10, 0)    NOT NULL, 
+    jDate          DATE             NOT NULL, 
+    jCardOwner     VARCHAR2(30)     NOT NULL, 
+    jEmail         VARCHAR2(40)     NOT NULL, 
+    jPhoneNo       VARCHAR2(20)     NOT NULL, 
+    jCardNo        VARCHAR2(30)     NOT NULL, 
+    jValidDate     VARCHAR2(20)     NOT NULL, 
+    jCardCVC       VARCHAR2(10)     NOT NULL, 
+    jStreetAddr    VARCHAR2(500)    NOT NULL, 
+    jStreetNMG     VARCHAR2(500)    NULL, 
+    jCity          VARCHAR2(200)    NOT NULL, 
+    jCountry       VARCHAR2(50)     NOT NULL, 
+    jState         VARCHAR2(50)     NULL, 
+    jZipCode       VARCHAR2(20)     NULL, 
+    jGuest         VARCHAR2(30)     NOT NULL, 
+    jIfCancel      NUMBER(1, 0)     NOT NULL, 
+    mNo            NUMBER(10, 0)    NOT NULL, 
+    CONSTRAINT JUMUN_PK PRIMARY KEY (jNo)
+)
+/
+
+CREATE SEQUENCE jumun_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER jumun_AI_TRG
+BEFORE INSERT ON jumun 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT jumun_SEQ.NEXTVAL
+    INTO :NEW.jNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER jumun_AI_TRG;
+/
+
+--DROP SEQUENCE jumun_SEQ;
+/
+
+COMMENT ON TABLE jumun IS '주문'
+/
+
+COMMENT ON COLUMN jumun.jNo IS '주문번호'
+/
+
+COMMENT ON COLUMN jumun.jTotPay IS '주문 총 가격'
+/
+
+COMMENT ON COLUMN jumun.jDate IS '주문 한 일자'
+/
+
+COMMENT ON COLUMN jumun.jCardOwner IS '카드 소유자'
+/
+
+COMMENT ON COLUMN jumun.jEmail IS '이메일'
+/
+
+COMMENT ON COLUMN jumun.jPhoneNo IS '연락처'
+/
+
+COMMENT ON COLUMN jumun.jCardNo IS '카드번호'
+/
+
+COMMENT ON COLUMN jumun.jValidDate IS '카드 유효기간'
+/
+
+COMMENT ON COLUMN jumun.jCardCVC IS '카드 CVC'
+/
+
+COMMENT ON COLUMN jumun.jStreetAddr IS '도로명 주소'
+/
+
+COMMENT ON COLUMN jumun.jStreetNMG IS '나머지 주소'
+/
+
+COMMENT ON COLUMN jumun.jCity IS '도시'
+/
+
+COMMENT ON COLUMN jumun.jCountry IS '나라'
+/
+
+COMMENT ON COLUMN jumun.jState IS '주'
+/
+
+COMMENT ON COLUMN jumun.jZipCode IS '우편번호'
+/
+
+COMMENT ON COLUMN jumun.jGuest IS '투숙자 이름'
+/
+
+COMMENT ON COLUMN jumun.jIfCancel IS '주문 취소 여부'
+/
+
+COMMENT ON COLUMN jumun.mNo IS '회원번호'
+/
+
+ALTER TABLE jumun
+    ADD CONSTRAINT FK_jumun_mNo_member_mNo FOREIGN KEY (mNo)
+        REFERENCES member (mNo)
+/
+
+
+-- member Table Create SQL
+CREATE TABLE jumun_detail
+(
+    jdNo            NUMBER(10,0)     NOT NULL, 
+    jdOrderDate     DATE             NULL, 
+    jdCheckOut      DATE             NULL, 
+    jdOrderTime     VARCHAR2(30)     NULL, 
+    jdPickUpPos     VARCHAR2(30)     NULL, 
+    jdDropOffPos    VARCHAR2(30)     NULL, 
+    jdProductQty    NUMBER(5, 0)     NOT NULL, 
+    jdProductTot    NUMBER(20, 0)    NOT NULL, 
+    jdOrderQty      NUMBER(5)        NULL, 
+    jdStayDate      NUMBER(3)        NULL, 
+    jdIfCancel      NUMBER(1, 0)     NULL, 
+    jNo             NUMBER(10, 0)    NOT NULL, 
+    pNo             NUMBER(10, 0)    NOT NULL, 
+    CONSTRAINT JUMUN_DETAIL_PK PRIMARY KEY (jdNo)
+)
+/
+
+CREATE SEQUENCE jumun_detail_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER jumun_detail_AI_TRG
+BEFORE INSERT ON jumun_detail 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT jumun_detail_SEQ.NEXTVAL
+    INTO :NEW.jdNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER jumun_detail_AI_TRG;
+/
+
+--DROP SEQUENCE jumun_detail_SEQ;
+/
+
+COMMENT ON TABLE jumun_detail IS '주문상세'
+/
+
+COMMENT ON COLUMN jumun_detail.jdNo IS '주문상세번호'
+/
+
+COMMENT ON COLUMN jumun_detail.jdOrderDate IS '주문 예약 날짜'
+/
+
+COMMENT ON COLUMN jumun_detail.jdCheckOut IS '체크아웃 날짜'
+/
+
+COMMENT ON COLUMN jumun_detail.jdOrderTime IS '주문 예약 시간'
+/
+
+COMMENT ON COLUMN jumun_detail.jdPickUpPos IS '픽업 위치'
+/
+
+COMMENT ON COLUMN jumun_detail.jdDropOffPos IS '드랍오프 위치'
+/
+
+COMMENT ON COLUMN jumun_detail.jdProductQty IS '제품별 주문 수량'
+/
+
+COMMENT ON COLUMN jumun_detail.jdProductTot IS '제품별 총 가격'
+/
+
+COMMENT ON COLUMN jumun_detail.jdOrderQty IS '주문 인원 수'
+/
+
+COMMENT ON COLUMN jumun_detail.jdStayDate IS '숙박 일 수'
+/
+
+COMMENT ON COLUMN jumun_detail.jdIfCancel IS '취소여부'
+/
+
+COMMENT ON COLUMN jumun_detail.jNo IS '주문번호'
+/
+
+COMMENT ON COLUMN jumun_detail.pNo IS '제품번호'
+/
+
+ALTER TABLE jumun_detail
+    ADD CONSTRAINT FK_jumun_detail_pNo_product_pN FOREIGN KEY (pNo)
+        REFERENCES product (pNo)
+/
+
+ALTER TABLE jumun_detail
+    ADD CONSTRAINT FK_jumun_detail_jNo_jumun_jNo FOREIGN KEY (jNo)
+        REFERENCES jumun (jNo)
+/
+
+
+-- member Table Create SQL
+CREATE TABLE cart
+(
+    cNo                Number(10,0)     NOT NULL, 
+    cProductQty        NUMBER(2, 0)     NULL, 
+    cProductTypePay    NUMBER(10, 0)    NULL, 
+    cCheckInTime       VARCHAR2(30)     NULL, 
+    cCheckIn           DATE             NULL, 
+    cCheckOut          DATE             NULL, 
+    cPickUpPos         VARCHAR2(50)     NULL, 
+    cDropOffPos        VARCHAR2(50)     NULL, 
+    cOrderCnt          NUMBER(10, 0)    NULL, 
+    mNo                NUMBER(10, 0)    NOT NULL, 
+    pNo                NUMBER(10, 0)    NOT NULL, 
+    CONSTRAINT CART_PK PRIMARY KEY (cNo)
+)
+/
+
+CREATE SEQUENCE cart_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER cart_AI_TRG
+BEFORE INSERT ON cart 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT cart_SEQ.NEXTVAL
+    INTO :NEW.cNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER cart_AI_TRG;
+/
+
+--DROP SEQUENCE cart_SEQ;
+/
+
+COMMENT ON TABLE cart IS '카트'
+/
+
+COMMENT ON COLUMN cart.cNo IS '카트번호'
+/
+
+COMMENT ON COLUMN cart.cProductQty IS '제품별 주문 수량'
+/
+
+COMMENT ON COLUMN cart.cProductTypePay IS '제품별 총 가격'
+/
+
+COMMENT ON COLUMN cart.cCheckInTime IS '체크인 시간'
+/
+
+COMMENT ON COLUMN cart.cCheckIn IS '체크인 날짜'
+/
+
+COMMENT ON COLUMN cart.cCheckOut IS '체크아웃 날짜'
+/
+
+COMMENT ON COLUMN cart.cPickUpPos IS '픽업 위치'
+/
+
+COMMENT ON COLUMN cart.cDropOffPos IS '드랍오프 위치'
+/
+
+COMMENT ON COLUMN cart.cOrderCnt IS '주문 인원 수'
+/
+
+COMMENT ON COLUMN cart.mNo IS '회원번호'
+/
+
+COMMENT ON COLUMN cart.pNo IS '제품 번호'
+/
+
+ALTER TABLE cart
+    ADD CONSTRAINT FK_cart_mNo_member_mNo FOREIGN KEY (mNo)
+        REFERENCES member (mNo)
+/
+
+ALTER TABLE cart
+    ADD CONSTRAINT FK_cart_pNo_product_pNo FOREIGN KEY (pNo)
+        REFERENCES product (pNo)
+/
+
+
+-- member Table Create SQL
+CREATE TABLE blog
+(
+    bNo           NUMBER(10, 0)     NOT NULL, 
+    bTitle        VARCHAR2(50)      NOT NULL, 
+    bDate         DATE              NOT NULL, 
+    bContent      VARCHAR2(4000)    NOT NULL, 
+    bReadCount    NUMBER(10, 0)     NOT NULL, 
+    bImg          VARCHAR2(200)     NOT NULL, 
+    bCategory     VARCHAR2(20)      NOT NULL, 
+    mNo           NUMBER(10, 0)     NOT NULL, 
+    CONSTRAINT BLOG_PK PRIMARY KEY (bNo)
+)
+/
+
+CREATE SEQUENCE blog_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER blog_AI_TRG
+BEFORE INSERT ON blog 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT blog_SEQ.NEXTVAL
+    INTO :NEW.bNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER blog_AI_TRG;
+/
+
+--DROP SEQUENCE blog_SEQ;
+/
+
+COMMENT ON TABLE blog IS '블로그'
+/
+
+COMMENT ON COLUMN blog.bNo IS '블로그 번호'
+/
+
+COMMENT ON COLUMN blog.bTitle IS '블로그 제목'
+/
+
+COMMENT ON COLUMN blog.bDate IS '블로그 작성일'
+/
+
+COMMENT ON COLUMN blog.bContent IS '블로그 내용'
+/
+
+COMMENT ON COLUMN blog.bReadCount IS '블로그 조회수'
+/
+
+COMMENT ON COLUMN blog.bImg IS '블로그 이미지'
+/
+
+COMMENT ON COLUMN blog.bCategory IS '블로그 카테고리'
+/
+
+COMMENT ON COLUMN blog.mNo IS '회원 번호'
+/
+
+ALTER TABLE blog
+    ADD CONSTRAINT FK_blog_mNo_member_mNo FOREIGN KEY (mNo)
+        REFERENCES member (mNo)
+/
+
+
+-- member Table Create SQL
+CREATE TABLE review
+(
+    rNo         NUMBER(10, 0)     NOT NULL, 
+    rRate1      NUMBER(1, 0)      NOT NULL, 
+    rRate2      NUMBER(1, 0)      NULL, 
+    rRate3      NUMBER(1, 0)      NULL, 
+    rRate4      NUMBER(1, 0)      NULL, 
+    rContent    VARCHAR2(4000)    NOT NULL, 
+    rRegdate    DATE              NOT NULL, 
+    pNo         NUMBER(10, 0)     NOT NULL, 
+    mNo         NUMBER(10, 0)     NOT NULL, 
+    CONSTRAINT REVIEW_PK PRIMARY KEY (rNo, mNo)
+)
+/
+
+CREATE SEQUENCE review_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER review_AI_TRG
+BEFORE INSERT ON review 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT review_SEQ.NEXTVAL
+    INTO :NEW.rNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER review_AI_TRG;
+/
+
+--DROP SEQUENCE review_SEQ;
+/
+
+COMMENT ON TABLE review IS '리뷰'
+/
+
+COMMENT ON COLUMN review.rNo IS '리뷰 번호'
+/
+
+COMMENT ON COLUMN review.rRate1 IS '리뷰 평점1'
+/
+
+COMMENT ON COLUMN review.rRate2 IS '리뷰 평점2'
+/
+
+COMMENT ON COLUMN review.rRate3 IS '리뷰 평점3'
+/
+
+COMMENT ON COLUMN review.rRate4 IS '리뷰 평점4'
+/
+
+COMMENT ON COLUMN review.rContent IS '리뷰 내용'
+/
+
+COMMENT ON COLUMN review.rRegdate IS '리뷰 작성일'
+/
+
+COMMENT ON COLUMN review.pNo IS '제품 번호'
+/
+
+COMMENT ON COLUMN review.mNo IS '회원 번호'
+/
+
+ALTER TABLE review
+    ADD CONSTRAINT FK_review_mNo_member_mNo FOREIGN KEY (mNo)
+        REFERENCES member (mNo)
+/
+
+ALTER TABLE review
+    ADD CONSTRAINT FK_review_pNo_product_pNo FOREIGN KEY (pNo)
+        REFERENCES product (pNo)
+/
+
+
+-- member Table Create SQL
+CREATE TABLE wish_list
+(
+    mNo    NUMBER(10, 0)    NOT NULL, 
+    pNo    NUMBER(10, 0)    NOT NULL, 
+    CONSTRAINT WISH_LIST_PK PRIMARY KEY (mNo, pNo)
+)
+/
+
+COMMENT ON TABLE wish_list IS '찜'
+/
+
+COMMENT ON COLUMN wish_list.mNo IS '회원 번호'
+/
+
+COMMENT ON COLUMN wish_list.pNo IS '제품번호'
+/
+
+ALTER TABLE wish_list
+    ADD CONSTRAINT FK_wish_list_mNo_member_mNo FOREIGN KEY (mNo)
+        REFERENCES member (mNo)
+/
+
+ALTER TABLE wish_list
+    ADD CONSTRAINT FK_wish_list_pNo_product_pNo FOREIGN KEY (pNo)
+        REFERENCES product (pNo)
+/
+
+
+-- member Table Create SQL
+CREATE TABLE jumun_detail_cancel
+(
+    jdNo            NUMBER(10,0)     NOT NULL, 
+    jdOrderDate     DATE             NULL, 
+    jdCheckOut      DATE             NULL, 
+    jdOrderTime     VARCHAR2(30)     NULL, 
+    jdPickUpPos     VARCHAR2(30)     NULL, 
+    jdDropOffPos    VARCHAR2(30)     NULL, 
+    jdProductQty    NUMBER(5, 0)     NOT NULL, 
+    jdProductTot    NUMBER(20, 0)    NOT NULL, 
+    jdOrderQty      NUMBER(5)        NULL, 
+    jdStayDate      NUMBER(3)        NULL, 
+    jdIfCancel      NUMBER(1, 0)     NULL, 
+    jNo             NUMBER(10, 0)    NOT NULL, 
+    pNo             NUMBER(10, 0)    NOT NULL, 
+    CONSTRAINT JUMUN_DETAIL_CANCEL_PK PRIMARY KEY (jdNo)
+)
+/
+
+CREATE SEQUENCE jumun_detail_cancel_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER jumun_detail_cancel_AI_TRG
+BEFORE INSERT ON jumun_detail_cancel 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT jumun_detail_cancel_SEQ.NEXTVAL
+    INTO :NEW.jdNo
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER jumun_detail_cancel_AI_TRG;
+/
+
+--DROP SEQUENCE jumun_detail_cancel_SEQ;
+/
+
+COMMENT ON TABLE jumun_detail_cancel IS '주문취소'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdNo IS '주문취소번호'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdOrderDate IS '주문 예약 날짜'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdCheckOut IS '체크아웃 날짜'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdOrderTime IS '주문 예약 시간'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdPickUpPos IS '픽업 위치'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdDropOffPos IS '드랍오프 위치'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdProductQty IS '제품별 주문 수량'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdProductTot IS '제품별 총 가격'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdOrderQty IS '주문 인원 수'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdStayDate IS '숙박 일 수'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jdIfCancel IS '취소여부'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.jNo IS '주문번호'
+/
+
+COMMENT ON COLUMN jumun_detail_cancel.pNo IS '제품번호'
+/
+
+ALTER TABLE jumun_detail_cancel
+    ADD CONSTRAINT FK_jumun_detail_cancel_jNo_jum FOREIGN KEY (jNo)
+        REFERENCES jumun (jNo)
+/
+
+ALTER TABLE jumun_detail_cancel
+    ADD CONSTRAINT FK_jumun_detail_cancel_pNo_pro FOREIGN KEY (pNo)
+        REFERENCES product (pNo)
+/
+
+
