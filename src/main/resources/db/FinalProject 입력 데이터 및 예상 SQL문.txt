@@ -1,0 +1,394 @@
+SELECT  foodcategory,COUNT(*) categoryCnt
+			FROM PRODUCT
+			WHERE PTYPE ='restaurant' AND foodcategory NOT IN ('Dummy','Restaurant Booking') AND foodcategory NOT LIKE '%Dessert'
+			GROUP BY foodcategory;
+select * from product;
+select * from review;
+select * from JUMUN;
+SELECT * FROM MEMBER;
+SELECT * FROM jumun_detail;
+
+alter table jumun drop constraint SYS_C00159386;
+
+--컬럼 추가--
+ALTER TABLE PRODUCT ADD foodcategory varchar2(20);
+
+update product
+set foodcategory ='America Food'
+where foodcategory ='America';
+commit;
+--Restaurant 상품 등록(입력)--
+
+--인원수당 좌석 예약 가격은 10000 (예약 상품 등록)--
+--BPPP(Booking price per person)-
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC)
+VALUES(PRODUCT_SEQ.nextval, 'BPPP', 10000,'restaurant', 
+        99, null, null, 8.0,'레스토랑예약');
+
+commit;
+--음식 등록--
+
+--유럽 식--
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Lasagna', 35000,'restaurant', 
+        50, 'Lasagna1.jpg/Lasagna2.jpg/Lasagna3.jpg/Lasagna4.jpg/Lasagna5.jpg/Lasagna6.jpg/Lasagna7.jpg', null,4,'라자냐는 이탈리아 북부에서 유래한 파스타의 일종으로 라구 볼로네제와 베샤멜 소스, 치즈를 넣은 오븐 요리이다' ,'European Food');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC,foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Napoli pizza', 26000,'restaurant', 
+        50, 'Napoli_pizza.jpg', null,3,'이탈리아 나폴리 지역에서 생산되는 피자','European Food');       
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC,foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Bouillabaisse', 25000,'restaurant', 
+        50, 'Bouillabaisse.jpg', null,4,'부야베스는 프랑스의 포구 도시인 마르세유에서 유래한 전통적인 지역 생선 스튜이다.','European Food'); 
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC,foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Ratatouille', 33000,'restaurant', 
+        50, 'Ratatouille.jpg', null,2,'라타투이(Ratatouille)는 가지, 호박, 피망, 토마토 등에 허브와 올리브 오일을 넣고 뭉근히 끓여 만든 채소 스튜이다.','European Food'); 
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC,foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Gratin dauphinois', 25000,'restaurant', 
+        50, 'Gratin_dauphinois.jpg', null,3,'그라탕 도피누아(Gratin dauphinois)는 감자와 생크림을 기본으로 만든 프랑스 남동부 도피네(Dauphiné) 지방의 전통 요리이다.','European Food'); 
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC,foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Egg tart', 10000,'restaurant', 
+        50, 'Egg_tart.jpg', null,4,'달걀노른자, 생크림 등을 섞어 만든 커스터드크림으로 속을 채운 파이로, 포르투갈에서 기원한 디저트.','European/Dessert'); 
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC,foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Syrup waffle', 13000,'restaurant', 
+        50, 'Syrup_waffle.jpg', null,4,'얇게 구운 와플 사이에 달콤한 시럽을 바른 와플로 네덜란드 하우다시에서 유래하였다.','European/Dessert'); 
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC,foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Sachertorte1', 15000,'restaurant', 
+        50, 'Sachertorte1.jpg/Sachertorte2.jpg/Sachertorte3.jpg/Sachertorte4.jpg/Sachertorte5.jpg/Sachertorte6.jpg/Sachertorte7.jpg', null,4,
+        
+        '자허토르테(Sachertorte)는 초콜릿 스폰지 케이크에 살구잼을 넣고 진한 초콜릿을 입혀 만든 오스트리아의 대표적인 케이크이다.','European/Dessert'); 
+rollback;
+commit;
+
+
+
+
+
+
+select * from product;
+select PRODUCT_SEQ.nextval from dual;
+
+
+
+rollback;
+
+
+
+
+
+--일식--        
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Sushi', 25000,'restaurant', 
+        50, 'Sushi1.jpg/Sushi2.jpg/Sushi3.jpg/Sushi4.jpg/Sushi5.jpg/Sushi6.jpg/Sushi7.jpg', null,5,'스시는 소금과 식초, 설탕으로 간을 한 밥 위에 얇게 저민 생선이나 김, 달걀, 채소 등을 얹거나 말아 만드는 일본의 대표 요리이다.','Japanese Food');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Sashimi', 30000,'restaurant', 
+        50, 'Sashimi.jpg', null,3,'사시미(刺身, Sashimi)는 주로 생선과 조개류를 익히지 않고 날것으로 썰어 먹는 일본 음식이다.','Japanese Food');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Tonkatsu', 14000,'restaurant', 
+        50, 'Tonkatsu.jpg', null,3,'돈가츠(とんかつ)는 두툼한 돼지고기에 밀가루, 달걀, 빵가루를 입혀 튀긴 일본의 대표 요리이다. ','Japanese Food');
+
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Tempura', 12000,'restaurant', 
+        50, 'Tempura.jpg', null,3,'덴푸라(天ぷら)는 해산물, 채소 등에 튀김옷을 입히고 기름에 튀겨낸 일본 요리를 총칭하는 말이다.','Japanese Food');
+
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Donburi', 12000,'restaurant', 
+        50, 'Donburi.jpg', null,2,'돈부리(丼, どんぶり)는 밥 위에 다양한 재료를 토핑으로 얹어 만드는 일본의 덮밥 요리이다. ','Japanese Food');
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Gyukacheu', 40000,'restaurant', 
+        50, 'Gyukacheu.jpg', null,5,'규카츠 ( 牛カツ )는 자른 쇠고기에 빵가루로 옷을 입고 식용유에 튀긴 일본식 양식이다. 비프카쓰 ( ビフカツ, ビーフカツ ) 또는 비프 커틀릿 ( ビーフカツレツ )라고도 불린다.','Japanese Food');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Wagasi', 5000,'restaurant', 
+        50, 'Wagasi.jpg', null,3,'일본식 화과자인 와가시(わがし)는 과거 일본 궁중에서 신에게 바치던 음식으로, 왕족과 일부 귀족들만 먹을 수 있던 귀하고 고급진 디저트 요리.','Japanese/Dessert');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Dango', 5000,'restaurant', 
+        50, 'Dango.jpg', null,2,' 당고는 쌀가루나 밀가루에 따뜻한 물을 부어 만든 반죽을 삶거나 찐 후 작고 둥글게 빚어 만든 화과자이다.','Japanese/Dessert');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Mochi', 5000,'restaurant', 
+        50, 'Mochi.jpg', null,3,'모찌는 찹쌀을 찌고 절구에 찧어 만든 반죽으로 빚은 일본의 떡이다.','Japanese/Dessert');
+
+commit;
+
+
+-- 중식 --
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Kkongppa oji tting', 15000,'restaurant', 
+        50, 'Kkongppa_oji_tting.jpg', null,3,'꽁빠오지띵(宫保鸡丁)은 닭고기를 땅콩, 매운 고추와 함께 볶아 알싸하고 매콤한 맛과 향이 나는 요리이다.','Chinese Food');
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Kku lao lou', 20000,'restaurant', 
+        50, 'Kku_lao_lou.jpg', null,4,'꾸라오로우(咕咾肉)는 튀긴 돼지고기 위에 파인애플, 양파 등을 넣어 만든 새콤달콤한 소스를 뿌려 먹는 광동 요리이다','Chinese Food');
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Wie pping', 15000,'restaurant', 
+        50, 'Wie_pping.jpg', null,2,'위에삥(月饼)은 밀가루와 라드, 설탕, 달걀 등을 섞어 만든 피에 견과류 등의 소를 넣은 후 나무틀에 넣어 모양을 잡아서 구워낸 중국의 삥(饼, 떡)이다.','Chinese Food');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Jiaozi', 240000,'restaurant', 
+        50, 'Jiaozi.jpg', null,3,'쟈오쯔(饺子)는 밀가루를 반죽한 것에 돼지고기 다진 것과 야채 등의 소를 넣고 빚어 삶거나 찌거나 기름에 지져먹는 중국 만두 종류의 하나이다.','Chinese Food');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Ppangppang ji', 17000,'restaurant', 
+        50, 'Ppangppang_ji.jpg', null,2,'빵빵지(棒棒鸡)는 닭고기를 삶은 후 가늘게 찢어 위에 소스를 뿌려 먹는 사천(四川)의 냉채 요리이다.','Chinese Food');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'San bu nian', 11000,'restaurant', 
+        50, 'San_bu_nian.jpg', null,4,'중국의디저트 삼불점(三不粘),  치아, 그릇, 젓가락에 붙지 않는다 하여 삼불점이라 불리는 중국 디저트 요리.','Chinese/Dessert');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Xingrendoufu', 7000,'restaurant', 
+        50, 'Xingrendoufu.jpg', null,3,'중국 쓰촨성의 전통 후식이다. 행인, 설탕, 우유, 계화꽃, 한천을 넣고 끓인 뒤 냉동실에 넣고 굳힌 요리이다. 두부 모양이고 시원하고 달콤한 맛이다.','Chinese/Dessert');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Tanghulu', 7000,'restaurant', 
+        50, 'Tanghulu.jpg', null,3,'중국 북경 지역을 대표하는 전통 간식으로, 긴 나무 막대에 산사나무 열매 등 여러가지 과일을 끼워 달콤한 시럽을 바른 뒤 굳혀 만든 것이다.','Chinese/Dessert');
+commit;
+-- 미국식 --
+rollback;
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Hamburger', 13000,'restaurant', 
+        50, 'Hamburger.jpg', null,3,'햄버거(Hamburger)는 간 쇠고기를 납작하게 빚은 패티(patty)를 그릴이나 직화로 구워 양상추나 토마토 등의 채소와 함께 빵 사이에 끼워 먹는 미국식 샌드위치의 일종이다.','America');
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Clam chowder', 12000,'restaurant', 
+        50, 'Clam_chowder.jpg', null,4,'클램 차우더(clam chowder)는 조갯살(주로 대합), 절인 돼지고기, 또는 베이컨, 양파, 셀러리, 감자, 당근을 넣고 끓인 미국의 수프 요리이다.','America');
+        
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Barbecue', 30000,'restaurant', 
+        50, 'Barbecue.jpg', null,5,'바비큐(barbecue)는 열을 간접적으로 이용해 고기를 낮은 온도에서 서서히 조리하고 훈연을 통해 스모키한 향이 배도록 한 요리이다.','America');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Jambalaya', 23000,'restaurant', 
+        50, 'Jambalaya.jpg', null,4,'잠발라야(jambalaya)는 고기, 해산물, 채소 등 다양한 재료에 쌀을 넣고 볶다 해산물과 육수를 붓고 끓여 만드는 미국 남부의 쌀 요리이다.','America');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Eggs benedict', 10000,'restaurant', 
+        50, 'Eggs_benedict.jpg', null,3,'에그 베네딕트(egg benedict)는 구운 잉글리시 머핀 가운데에 햄이나 캐나디안 베이컨, 수란(a poached egg)을 얹고 홀란다이즈 소스(holladaise sauce)를 뿌린 미국 샌드위치의 한 종류이다.','America');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Doughnut', 5000,'restaurant', 
+        50, 'Doughnut.jpg', null,3,'도넛(Doughnut)은 밀가루에 설탕, 계란, 우유, 지방, 이스트를 넣어 만든 반죽을 둥글게 빚어 안쪽에 구멍을 뚫거나 링 모양으로 만들어 기름에 튀긴 빵이다.','America/Dessert');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Apple crisp', 8000,'restaurant', 
+        50, 'Apple_crisp.jpg', null,4,'애플크리스프(Apple crisp)는 사과 위에 물기없는 반죽을 올려 구운 미국에서 처음 만들어져 유럽으로 퍼져나간 디저트이다.','America/Dessert');
+
+INSERT INTO PRODUCT(PNO, PNAME , PPRICE, PTYPE, 
+                    PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC, foodcategory)
+VALUES(PRODUCT_SEQ.nextval, 'Chocolate_pudding', 7000,'restaurant', 
+        50, 'Chocolate_pudding.jpg', null,4,'초콜릿 푸딩(Chocolate pudding)은 전 세계적으로 사랑받고 있는 음식이며 시작은 보스턴에서 부터 시작된 디저트이다.','America/Dessert');
+
+commit;
+
+
+--상품 변경--
+UPDATE PRODUCT
+SET PNAME='Chateaubriand', PPRICE=35000, PTYPE='restaurant', PAVAILABLE=50, PIMG='Chateaubriand.jpg', PRATE=8.0, PDESC='샤토브리앙(프랑스어: chateaubriand)은 쇠고기의 안심살을 구워내어 만든 프랑스식 비프스테이크이다.'
+WHERE PNO=13;
+
+UPDATE PRODUCT
+SET foodcategory = 'European Food'
+WHERE ptype = 'restaurant';
+commit;
+
+--레스토랑 상품검색--
+SELECT PNO, PNAME , PPRICE, PTYPE, PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC
+FROM PRODUCT
+WHERE PTYPE='restaurant';
+
+--레스토랑 상품검색[PTYPE을 쓸필욘 없지만 RESTAURANT 제품이 아닌것들은 다 거르고 싶을때 사용]--
+SELECT PNO, PNAME , PPRICE, PTYPE, PAVAILABLE, PIMG, PCAPACITY, PRATE, PDESC
+FROM PRODUCT
+WHERE PTYPE='restaurant' AND PNO=15;
+
+--주문삽입--
+INSERT INTO JUMUN(JNO, JTOTPAY, JDATE, JCARDOWNER, JEMAIL, JPHONENO,
+                  JCARDNO, JVALIDDATE, JCARDCVC, JSTREETADDR, JSTREETNMG,
+                  JCITY, JCOUNTRY, JSTATE, JPOSTCODE, JGUEST, JIFACTIVE, MNO)
+VALUES(JUMUN_SEQ.nextval, 34000,TO_DATE('2020/04/24'),'CHARA','ABC@JUMUN.COM','02-123-4567',
+    4521251452543321, '05/24', 213, 'THE KINGDOM ROAD', 'NMG ROAD',
+    'SEOUL','KOREA','GRATESTATE', 12345,'SOOKJA', 1, 4 );
+
+select JUMUN_SEQ.currval from dual;
+    
+--주문 상세 삽입--
+--제품 1--
+INSERT INTO JUMUN_DETAIL(JNO, JDORDERDATE, JDCHECKOUT, JDORDERTIME, JDPICKUPPOS, JDDROPOFFPOS,
+                        JDPRODUCTQTY, JDPRODUCTTOT, JDORDERQTY, JDSTAYDATE, PNO)
+VALUES(JUMUN_SEQ.currval, '2020/04/14', null, '12:00:00' ,null, null, 
+       1, 10000, 1, null, 15);
+
+--제품 2--
+INSERT INTO JUMUN_DETAIL(JNO, JDORDERDATE, JDCHECKOUT, JDORDERTIME, JDPICKUPPOS, JDDROPOFFPOS,
+                        JDPRODUCTQTY, JDPRODUCTTOT, JDORDERQTY, JDSTAYDATE, PNO)
+VALUES(JUMUN_SEQ.currval, '2020/04/14', null, null ,null, null, 
+       1, 24000, 1, null, 16);
+
+select * 
+from jumun_detail
+where JNO= 5;
+
+delete from product
+where pno = 87;
+
+
+delete from product
+where pno BETWEEN 39 AND 40;
+
+
+delete from product
+where ptype not in ('restaurant','tour','facility','room');
+
+
+commit;
+
+
+------------------------------------------------------------
+--ALTER TABLE [테이블명] DROP CONSTRAINT [제약조건이름];
+
+--REVIEW 제약조건 삭제
+ALTER TABLE REVIEW DROP CONSTRAINT FK_REVIEW_PNO_PRODUCT_PNO;
+
+--REVIEW 외래키 삭제
+--ALTER TABLE REVIEW DROP FOREIGN KEY [제약조건이름];
+
+
+--외래키 :
+/*
+  ALTER TABLE [테이블명] ADD CONSTRAINT [제약조건이름] FOREIGN KEY(컬럼명)
+  REFERENCES [부모테이블명](PK컬럼명) [ON DELETE CASCADE / ON UPDATE CASCADE];
+*/
+
+--제약조건 추가하기
+ALTER TABLE REVIEW ADD CONSTRAINT FK_REVIEW_PNO_PRODUCT_PNO FOREIGN KEY(PNO)
+REFERENCES PRODUCT (PNO) ON DELETE CASCADE;
+
+--기본키 : 
+  --ALTER TABLE [테이블명] ADD CONSTRAINT [제약조건이름] PRIMARY KEY(컬럼명);
+--NOT NULL 제약조건 추가
+  --ALTER TABLE [테이블명] MODIFY [컬럼명] [데이터타입] CONSTRAINT [제약조건이름] NOT NULL;
+
+COMMIT;
+------------------------------------------------------------------
+/* 예제
+SELECT *
+FROM ( SELECT rownum idx, s.* 
+       FROM (SELECT boardno, title, writer, regdate, readcount, groupno, step, depth 
+             FROM board 
+			 ORDER BY groupno DESC, step ASC ) s)
+WHERE idx >= 5 AND idx <= 15;
+
+
+SELECT *
+FROM ( SELECT rownum idx ,boardno, title, writer, regdate, readcount, groupno, step, depth 
+       FROM board 
+       ORDER BY groupno DESC, step ASC ) 
+WHERE idx >= 5 AND idx <= 15;
+*/
+------------------------------------------------------------------
+/*
+SELECT *
+FROM (SELECT ROWNUM rowcnt, p.*
+      FROM product p
+      order by p.pno)
+where rowcnt between 3 and 10 and ptype='tour';
+*/
+-- 등록순으로 보여주기
+SELECT *
+FROM (SELECT rownum idx , p.*
+      FROM (SELECT *
+          FROM product
+          ORDER BY PNO) p)
+WHERE pname !='BPPP' and idx BETWEEN 1 AND 6;
+
+-- 가격 낮은 순으로 보여주기
+SELECT *
+FROM (SELECT rownum idx , p.*
+      FROM (SELECT *
+            FROM product
+            WHERE pname !='BPPP'
+            ORDER BY pprice ASC) p)
+WHERE idx BETWEEN 1 AND 6;
+
+-- 가격 높은 순으로 보여주기
+SELECT *
+FROM (SELECT rownum idx , p.*
+      FROM (SELECT *
+            FROM product
+            WHERE pname !='BPPP'
+            ORDER BY pprice desc) p)
+WHERE idx BETWEEN 1 AND 6;
+
+-- 랭크 순으로 높은 순 > 이름 낮은순으로 보여주기
+SELECT *
+FROM (SELECT rownum idx , p.*
+      FROM (SELECT pno, pname, pprice, ptype, pavailable, pimg, NVL2(prate,prate,0) prate, pdesc, foodcategory
+            FROM product
+            WHERE pname !='BPPP'
+            ORDER BY prate desc,pname asc) p)
+WHERE idx BETWEEN 1 AND 20;
+
+SELECT COUNT(*)
+FROM PRODUCT
+WHERE PTYPE ='restaurant';
+
+select * 
+from jumun j 
+inner join JUMUN_DETAIL jd 
+on j.jno=jd.jno 
+inner join PRODUCT p
+on jd.pno = p.pno
+where j.jno= (select max(jno) from jumun j where j.mno = 5);
+
+commit
+
+
+;
